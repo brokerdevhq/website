@@ -20,8 +20,17 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        // Get latest 3 resources
-        var allResources = await _resourceService.GetAllArticlesAsync();
-        LatestResources = allResources.OrderByDescending(a => a.PublishDate).Take(3).ToList();
+        try
+        {
+            // Get latest 3 resources
+            var allResources = await _resourceService.GetAllArticlesAsync();
+            LatestResources = allResources.OrderByDescending(a => a.PublishDate).Take(3).ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error loading latest resources for homepage");
+            // Continue with empty list - homepage can still render
+            LatestResources = new List<ResourceArticle>();
+        }
     }
 }
