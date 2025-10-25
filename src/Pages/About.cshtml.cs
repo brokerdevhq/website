@@ -4,7 +4,8 @@ namespace BrokerDevWebsite.Pages;
 
 public class AboutModel : PageModel
 {
-    public void OnGet()
+    public Task OnGetAsync()
     {
+        return Task.CompletedTask;
     }
 }

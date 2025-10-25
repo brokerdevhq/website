@@ -19,9 +19,10 @@ public class ErrorModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public Task OnGetAsync()
     {
         RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+        return Task.CompletedTask;
     }
 }
 
