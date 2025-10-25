@@ -1,28 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@using BrokerDevWebsite.Constants
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <meta name="description" content="@ViewData["Description"]" />
+    <title>@ViewData[ViewDataKeys.Title]</title>
+    <meta name="description" content="@ViewData[ViewDataKeys.Description]" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="@(ViewData["CanonicalUrl"] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
+    <link rel="canonical" href="@(ViewData[ViewDataKeys.CanonicalUrl] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="@(ViewData["OgType"] ?? "website")" />
-    <meta property="og:url" content="@(ViewData["CanonicalUrl"] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
-    <meta property="og:title" content="@ViewData["Title"]" />
-    <meta property="og:description" content="@ViewData["Description"]" />
-    <meta property="og:image" content="@(ViewData["OgImage"] ?? "https://brokerdev.ca/images/og-default.png")" />
+    <meta property="og:type" content="@(ViewData[ViewDataKeys.OgType] ?? "website")" />
+    <meta property="og:url" content="@(ViewData[ViewDataKeys.CanonicalUrl] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
+    <meta property="og:title" content="@ViewData[ViewDataKeys.Title]" />
+    <meta property="og:description" content="@ViewData[ViewDataKeys.Description]" />
+    <meta property="og:image" content="@(ViewData[ViewDataKeys.OgImage] ?? "https://brokerdev.ca/images/og-default.png")" />
     <meta property="og:site_name" content="BrokerDev" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="@(ViewData["CanonicalUrl"] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
-    <meta name="twitter:title" content="@ViewData["Title"]" />
-    <meta name="twitter:description" content="@ViewData["Description"]" />
-    <meta name="twitter:image" content="@(ViewData["OgImage"] ?? "https://brokerdev.ca/images/og-default.png")" />
+    <meta name="twitter:url" content="@(ViewData[ViewDataKeys.CanonicalUrl] ?? $"https://brokerdev.ca{Context.Request.Path}")" />
+    <meta name="twitter:title" content="@ViewData[ViewDataKeys.Title]" />
+    <meta name="twitter:description" content="@ViewData[ViewDataKeys.Description]" />
+    <meta name="twitter:image" content="@(ViewData[ViewDataKeys.OgImage] ?? "https://brokerdev.ca/images/og-default.png")" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

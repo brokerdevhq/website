@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BrokerDevWebsite.Constants;
 using BrokerDevWebsite.Models;
 using BrokerDevWebsite.Services;
 
@@ -21,7 +22,7 @@ public class ResourcesIndexModel : PageModel
 
     public async Task OnGetAsync(string? category)
     {
-        SelectedCategory = category ?? "all";
+        SelectedCategory = category ?? ResourceConstants.AllCategoriesFilter;
 
         // Load all categories for filter buttons
         Categories = await _categoryService.GetAllCategoriesAsync();
@@ -29,7 +30,7 @@ public class ResourcesIndexModel : PageModel
         var allArticles = await _resourceService.GetAllArticlesAsync();
 
         // Filter by category if specified
-        if (SelectedCategory != "all")
+        if (SelectedCategory != ResourceConstants.AllCategoriesFilter)
         {
             Articles = allArticles
                 .Where(a => a.Categories.Any(c => c.Equals(SelectedCategory, StringComparison.OrdinalIgnoreCase)))
