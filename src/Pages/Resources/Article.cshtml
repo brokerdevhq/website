@@ -25,7 +25,7 @@ else
                     {
                         <span class="resource-category">@category</span>
                     }
-                    <span class="resource-date">@Model.Article.PublishDate.ToString("MMMM d, yyyy")</span>
+                    <span class="resource-date">@Model.Article.PublishDate?.ToString("MMMM d, yyyy")</span>
                     <span class="resource-author">By @Model.Article.Author</span>
                     <span class="resource-reading-time">@Model.Article.ReadingTimeMinutes min read</span>
                 </div>
@@ -49,7 +49,7 @@ else
         "@@type": "Article",
         "headline": "@Model.Article.Title",
         "description": "@Model.Article.Summary",
-        "datePublished": "@Model.Article.PublishDate.ToString("yyyy-MM-dd")",
+        "datePublished": "@Model.Article.PublishDate?.ToString("yyyy-MM-dd")",
         "author": {
             "@@type": "Person",
             "name": "@Model.Article.Author"

@@ -77,18 +77,18 @@ public class FileBasedResourceService : IResourceService
             // Calculate reading time
             var readingTime = CalculateReadingTime(markdownContent);
 
-            // Parse published status (defaults to true if not present)
-            var published = true;
-            if (frontmatter.ContainsKey("published"))
+            // Parse publish date (nullable - if not present, article won't be published)
+            DateTime? publishDate = null;
+            if (frontmatter.ContainsKey("publishDate"))
             {
-                var publishedValue = frontmatter["published"];
-                if (publishedValue is bool boolValue)
+                var publishDateValue = frontmatter["publishDate"];
+                if (publishDateValue is DateTime dateValue)
                 {
-                    published = boolValue;
+                    publishDate = dateValue;
                 }
-                else if (bool.TryParse(publishedValue?.ToString(), out var parsedBool))
+                else if (DateTime.TryParse(publishDateValue?.ToString(), out var parsedDate))
                 {
-                    published = parsedBool;
+                    publishDate = parsedDate;
                 }
             }
 
@@ -102,13 +102,8 @@ public class FileBasedResourceService : IResourceService
                     ? categories.Select(c => c.ToString() ?? "").ToList()
                     : new List<string>(),
                 Author = frontmatter.GetValueOrDefault("author")?.ToString() ?? "BrokerDev",
-                PublishDate = frontmatter.GetValueOrDefault("publishDate") is DateTime date
-                    ? date
-                    : DateTime.TryParse(frontmatter.GetValueOrDefault("publishDate")?.ToString(), out var parsedDate)
-                        ? parsedDate
-                        : DateTime.Now,
+                PublishDate = publishDate,
                 ReadingTimeMinutes = readingTime,
-                Published = published,
                 Content = markdownContent
             };
         }
@@ -157,7 +152,7 @@ public class FileBasedResourceService : IResourceService
             var allArticles = LoadAllArticles();
 
             return allArticles
-                .Where(a => a.Published)
+                .Where(a => a.IsPublished())
                 .Select(a => new ResourceArticle
                 {
                     Slug = a.Slug,
@@ -166,8 +161,7 @@ public class FileBasedResourceService : IResourceService
                     Categories = a.Categories,
                     Author = a.Author,
                     PublishDate = a.PublishDate,
-                    ReadingTimeMinutes = a.ReadingTimeMinutes,
-                    Published = a.Published
+                    ReadingTimeMinutes = a.ReadingTimeMinutes
                 })
                 .ToList();
         }) ?? new List<ResourceArticle>());

@@ -97,7 +97,7 @@
             {
               <span class="resource-category">@category</span>
             }
-            <span class="resource-date">@article.PublishDate.ToString("MMM d, yyyy")</span>
+            <span class="resource-date">@article.PublishDate?.ToString("MMM d, yyyy")</span>
           </div>
           <h3><a href="/resources/@article.Slug">@article.Title</a></h3>
           <p>@article.Summary</p>
