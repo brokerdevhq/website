@@ -1,18 +1,24 @@
 ---
 slug: microsoft-copilot-mcp-support
-title: "Microsoft Copilot Studio Now Supports Model Context Protocol"
-summary: Microsoft has added MCP support to Copilot Studio, enabling AI agents to connect directly with external data sources and tools through the standardized protocol.
+title: "Microsoft Brings Model Context Protocol to Copilot Studio and Windows 11"
+summary: Microsoft announces comprehensive MCP support across Copilot Studio and native Windows 11 integration, enabling seamless AI-data connections across the entire Microsoft ecosystem.
 categories:
   - news
 author: BrokerDev
 publishDate: 2025-10-25
 ---
 
-## Microsoft Copilot Studio Embraces Model Context Protocol
+## Microsoft Goes All-In on Model Context Protocol
 
-Microsoft has officially added support for the Model Context Protocol (MCP) to Copilot Studio, enabling organizations to connect their AI agents with external knowledge servers and data sources through a standardized framework.
+In a major commitment to open AI standards, Microsoft has announced comprehensive Model Context Protocol support across its ecosystem—from Copilot Studio to native Windows 11 integration.
 
-According to [Microsoft's official documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp), Copilot Studio agents can now leverage MCP to access tools and resources from external servers, with configurations automatically inherited and dynamically updated.
+### Copilot Studio: Available Now
+
+Microsoft has officially added MCP support to Copilot Studio, enabling organizations to connect their AI agents with external knowledge servers and data sources through a standardized framework. According to [Microsoft's official documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp), Copilot Studio agents can now leverage MCP to access tools and resources from external servers, with configurations automatically inherited and dynamically updated.
+
+### Windows 11: Coming Soon
+
+At [Microsoft Build 2025](https://blogs.microsoft.com/blog/2025/05/19/microsoft-build-2025-the-age-of-ai-agents-and-building-the-open-agentic-web/), Microsoft announced that Windows 11 will deliver "broad first-party support" for MCP as part of the operating system itself—making it the first major OS to natively support the protocol.
 
 ## What This Means for Insurance Brokerages
 
@@ -66,13 +72,32 @@ Here's what insurance brokerages can do with MCP-connected Copilot agents:
 - "List all policies without current certificates of insurance"
 - "Which clients haven't had their annual reviews completed?"
 
-## Getting Started
+## Windows 11: Native MCP Support Coming
+
+At Microsoft Build 2025, Microsoft announced that Windows 11 will deliver "broad first-party support" for the Model Context Protocol as part of the operating system itself.
+
+This means MCP isn't just available in specific Microsoft products—it's being built into the Windows platform. According to the [Build 2025 announcement](https://blogs.microsoft.com/blog/2025/05/19/microsoft-build-2025-the-age-of-ai-agents-and-building-the-open-agentic-web/), Windows 11 will include:
+
+### Enhanced Authorization
+An updated authorization specification that allows users to leverage their existing Windows sign-in methods to grant AI agents secure access to data and services—from personal storage to subscriptions.
+
+### MCP Server Registry
+A centralized repository (accessible via [GitHub](https://github.com/modelcontextprotocol/registry)) for public and private MCP server entries, making it easy to discover and connect to available MCP services.
+
+### Cross-Platform Integration
+Native Windows 11 MCP support works seamlessly with other Microsoft platforms including GitHub, Copilot Studio, Azure AI Foundry, and Semantic Kernel.
+
+**Timeline**: While no specific GA date has been announced, Microsoft emphasized that security is the "top priority" during implementation, indicating a thoughtful rollout approach.
+
+## Getting Started Today
 
 Microsoft's MCP support is available now in Copilot Studio. To connect your BMS:
 
 1. Enable Generative Orchestration in Copilot Studio
 2. Configure your MCP server connection
 3. Your BMS tools and resources automatically become available to agents
+
+When Windows 11 native support launches, your existing MCP servers will work automatically—no additional integration needed.
 
 ## What This Means for the Industry
 
@@ -92,4 +117,6 @@ Interested in connecting your BMS to Copilot Studio through MCP? [Request early 
 
 **Resources**:
 - [Microsoft Learn: MCP in Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)
+- [Microsoft Build 2025: AI Agents and the Open Agentic Web](https://blogs.microsoft.com/blog/2025/05/19/microsoft-build-2025-the-age-of-ai-agents-and-building-the-open-agentic-web/)
+- [MCP Server Registry on GitHub](https://github.com/modelcontextprotocol/registry)
 - [Model Context Protocol Specification](https://modelcontextprotocol.io)
