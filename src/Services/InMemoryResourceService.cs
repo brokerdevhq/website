@@ -1,9 +1,24 @@
 using BrokerDevWebsite.Models;
+using System.Text.RegularExpressions;
 
 namespace BrokerDevWebsite.Services;
 
 public class InMemoryResourceService : IResourceService
 {
+    private static int CalculateReadingTime(string content)
+    {
+        // Strip HTML tags
+        var textOnly = Regex.Replace(content, "<[^>]*>", " ");
+
+        // Count words (split by whitespace and filter empty strings)
+        var wordCount = textOnly.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length;
+
+        // Calculate reading time (average 200 words per minute)
+        var minutes = (int)Math.Ceiling(wordCount / 200.0);
+
+        return Math.Max(1, minutes); // Minimum 1 minute
+    }
+
     private static readonly List<ResourceArticleDetail> _articles = new()
     {
         new ResourceArticleDetail
@@ -13,6 +28,7 @@ public class InMemoryResourceService : IResourceService
             Summary = "Learn how MCP enables AI assistants to securely access your business data.",
             Categories = new List<string> { "definitions", "guides" },
             PublishDate = new DateTime(2025, 10, 20),
+            ReadingTimeMinutes = 0, // Will be calculated below
             Content = @"
                 <h2>Understanding Model Context Protocol</h2>
                 <p>Model Context Protocol (MCP) is an open standard developed by Anthropic that enables AI assistants to securely connect to your business data and systems.</p>
@@ -107,6 +123,21 @@ public class InMemoryResourceService : IResourceService
             "
         }
     };
+
+    static InMemoryResourceService()
+    {
+        // Calculate reading time for each article based on content
+        foreach (var article in _articles)
+        {
+            var readingTime = CalculateReadingTime(article.Content);
+            // Use reflection to update the init-only property
+            var prop = typeof(ResourceArticleDetail).GetProperty(nameof(ResourceArticleDetail.ReadingTimeMinutes));
+            if (prop != null)
+            {
+                prop.SetValue(article, readingTime);
+            }
+        }
+    }
 
     public Task<List<ResourceArticle>> GetAllArticlesAsync()
     {

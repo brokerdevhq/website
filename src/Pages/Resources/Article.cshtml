@@ -27,6 +27,7 @@ else
                     }
                     <span class="resource-date">@Model.Article.PublishDate.ToString("MMMM d, yyyy")</span>
                     <span class="resource-author">By @Model.Article.Author</span>
+                    <span class="resource-reading-time">@Model.Article.ReadingTimeMinutes min read</span>
                 </div>
                 <h1>@Model.Article.Title</h1>
                 <p class="article-summary">@Model.Article.Summary</p>
