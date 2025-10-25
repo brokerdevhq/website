@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IResourceService, InMemoryResourceService>();
 builder.Services.AddSingleton<ICategoryService, InMemoryCategoryService>();
+builder.Services.AddSingleton<IContactService, InMemoryContactService>();
 
 var app = builder.Build();
 

@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BrokerDevWebsite.Models;
+using BrokerDevWebsite.Services;
 
 namespace BrokerDevWebsite.Pages;
 
 public class ContactModel : PageModel
 {
-    private readonly ILogger<ContactModel> _logger;
+    private readonly IContactService _contactService;
 
-    public ContactModel(ILogger<ContactModel> logger)
+    public ContactModel(IContactService contactService)
     {
-        _logger = logger;
+        _contactService = contactService;
     }
 
     [BindProperty]
@@ -22,30 +23,20 @@ public class ContactModel : PageModel
     {
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        // Log the contact form submission
-        _logger.LogInformation(
-            "Contact form submitted: {Name} ({Email}) from {Company} using {System}",
-            ContactForm.Name,
-            ContactForm.Email,
-            ContactForm.Company,
-            ContactForm.CurrentSystem
-        );
+        var success = await _contactService.SubmitContactFormAsync(ContactForm);
 
-        // TODO: Add email sending logic here
-        // For now, we'll just log it
-        // In production, you'd want to:
-        // 1. Send email via SendGrid, Azure Communication Services, or similar
-        // 2. Store in database for tracking
-        // 3. Integrate with CRM
+        if (success)
+        {
+            FormSubmitted = true;
+        }
 
-        FormSubmitted = true;
         return Page();
     }
 }
