@@ -1,7 +1,10 @@
+using BrokerDevWebsite.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<IResourceService, InMemoryResourceService>();
 
 var app = builder.Build();
 

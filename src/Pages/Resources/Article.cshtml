@@ -21,8 +21,12 @@ else
         <div class="container article-container">
             <div class="article-header">
                 <div class="article-meta">
-                    <span class="resource-category">@Model.Article.Category</span>
+                    @foreach (var category in Model.Article.Categories)
+                    {
+                        <span class="resource-category">@category</span>
+                    }
                     <span class="resource-date">@Model.Article.PublishDate.ToString("MMMM d, yyyy")</span>
+                    <span class="resource-author">By @Model.Article.Author</span>
                 </div>
                 <h1>@Model.Article.Title</h1>
                 <p class="article-summary">@Model.Article.Summary</p>

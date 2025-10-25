@@ -1,51 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using BrokerDevWebsite.Pages.Resources;
+using BrokerDevWebsite.Services;
 
 namespace BrokerDevWebsite.Pages;
 
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
+    private readonly IResourceService _resourceService;
 
     public List<ResourceArticle> LatestResources { get; set; } = new();
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(ILogger<IndexModel> logger, IResourceService resourceService)
     {
         _logger = logger;
+        _resourceService = resourceService;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
-        // Get latest 3 resources (same data source as Resources page)
-        var allResources = new List<ResourceArticle>
-        {
-            new ResourceArticle
-            {
-                Slug = "what-is-mcp",
-                Title = "What is Model Context Protocol (MCP)?",
-                Summary = "Learn how MCP enables AI assistants to securely access your business data.",
-                Category = "definitions",
-                PublishDate = new DateTime(2025, 10, 20)
-            },
-            new ResourceArticle
-            {
-                Slug = "bms-integration-guide",
-                Title = "Getting Started with BMS Integration",
-                Summary = "A step-by-step guide to connecting your legacy BMS to modern AI tools.",
-                Category = "guides",
-                PublishDate = new DateTime(2025, 10, 15)
-            },
-            new ResourceArticle
-            {
-                Slug = "announcing-brokerdev",
-                Title = "Announcing BrokerDev",
-                Summary = "We're building the bridge between legacy insurance systems and modern AI.",
-                Category = "news",
-                PublishDate = new DateTime(2025, 10, 1)
-            }
-        };
-
+        // Get latest 3 resources
+        var allResources = await _resourceService.GetAllArticlesAsync();
         LatestResources = allResources.OrderByDescending(a => a.PublishDate).Take(3).ToList();
     }
 }

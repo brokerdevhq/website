@@ -15,18 +15,21 @@
 <section class="resources-list">
   <div class="container">
     <div class="resources-filter">
-      <button class="filter-btn active" data-category="all">All</button>
-      <button class="filter-btn" data-category="news">News</button>
-      <button class="filter-btn" data-category="guides">Guides</button>
-      <button class="filter-btn" data-category="definitions">Definitions</button>
+      <a href="/resources" class="filter-btn @(Model.SelectedCategory == "all" ? "active" : "")">All</a>
+      <a href="/resources?category=news" class="filter-btn @(Model.SelectedCategory == "news" ? "active" : "")">News</a>
+      <a href="/resources?category=guides" class="filter-btn @(Model.SelectedCategory == "guides" ? "active" : "")">Guides</a>
+      <a href="/resources?category=definitions" class="filter-btn @(Model.SelectedCategory == "definitions" ? "active" : "")">Definitions</a>
     </div>
 
     <div class="resources-grid">
       @foreach (var article in Model.Articles)
       {
-        <article class="resource-card" data-category="@article.Category">
+        <article class="resource-card">
           <div class="resource-meta">
-            <span class="resource-category">@article.Category</span>
+            @foreach (var category in article.Categories)
+            {
+              <span class="resource-category">@category</span>
+            }
             <span class="resource-date">@article.PublishDate.ToString("MMM d, yyyy")</span>
           </div>
           <h2><a href="/resources/@article.Slug">@article.Title</a></h2>

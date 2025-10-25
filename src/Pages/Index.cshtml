@@ -93,7 +93,10 @@
       {
         <article class="resource-card">
           <div class="resource-meta">
-            <span class="resource-category">@article.Category</span>
+            @foreach (var category in article.Categories)
+            {
+              <span class="resource-category">@category</span>
+            }
             <span class="resource-date">@article.PublishDate.ToString("MMM d, yyyy")</span>
           </div>
           <h3><a href="/resources/@article.Slug">@article.Title</a></h3>
