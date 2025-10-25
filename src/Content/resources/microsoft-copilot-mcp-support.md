@@ -1,58 +1,95 @@
 ---
 slug: microsoft-copilot-mcp-support
-title: "Microsoft Announces Model Context Protocol Support for Copilot"
-summary: Microsoft is bringing MCP support to Copilot, enabling seamless integration with any data source through a standardized protocol.
+title: "Microsoft Copilot Studio Now Supports Model Context Protocol"
+summary: Microsoft has added MCP support to Copilot Studio, enabling AI agents to connect directly with external data sources and tools through the standardized protocol.
 categories:
   - news
 author: BrokerDev
 publishDate: 2025-10-25
 ---
 
-## Microsoft Embraces Model Context Protocol
+## Microsoft Copilot Studio Embraces Model Context Protocol
 
-In a significant move for enterprise AI integration, Microsoft has announced that Copilot will support the Model Context Protocol (MCP), the open standard created by Anthropic for connecting AI assistants to data sources.
+Microsoft has officially added support for the Model Context Protocol (MCP) to Copilot Studio, enabling organizations to connect their AI agents with external knowledge servers and data sources through a standardized framework.
+
+According to [Microsoft's official documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp), Copilot Studio agents can now leverage MCP to access tools and resources from external servers, with configurations automatically inherited and dynamically updated.
 
 ## What This Means for Insurance Brokerages
 
-This announcement is game-changing for the insurance industry. With MCP support in Copilot, brokerages can now:
+This is a game-changer for the insurance industry. With MCP support in Copilot Studio, brokerages can now:
 
 - **Connect Legacy Systems** - Integrate Copilot directly with existing broker management systems (BMS) like PowerBroker, BMSS, and Applied Epic
 - **Unified Data Access** - Access client data, policy information, and claims history through a single, standardized protocol
 - **No More Data Silos** - Break down barriers between your BMS, accounting systems, and AI tools
 - **Future-Proof Integration** - Build once, work everywhere - MCP connections work across multiple AI platforms
 
-## How It Works
+## How MCP Works in Copilot Studio
 
-The Model Context Protocol provides a standardized way for AI assistants to:
+Microsoft's implementation supports two key MCP capabilities:
 
-1. **Discover** available data sources and their capabilities
-2. **Query** information using natural language
-3. **Execute** actions like creating quotes or updating policies
-4. **Stream** real-time updates and notifications
+### Tools
+MCP tools are functions that Copilot agents can call to perform actions on your systems - like retrieving policy data, creating quotes, or updating client information.
 
-Instead of building custom integrations for each AI tool, you implement MCP once and gain access to every AI assistant that supports the protocol.
+### Resources
+Resources provide file-like data that agents can read for context, such as API responses, document contents, or database records.
+
+MCP servers automatically expose their tools and resources to Copilot Studio, with all configuration details (names, descriptions, inputs, outputs) inherited from the server. When changes occur on the MCP side, agents automatically access the updated versions.
+
+**Note**: Copilot Studio currently supports MCP tools and resources. Prompt template support is planned for the future. Generative Orchestration must be enabled to use MCP features.
 
 ## The BrokerDev Advantage
 
-At BrokerDev, we've been building MCP servers for legacy insurance systems from day one. Our MCP implementation for broker management systems means you're already positioned to take advantage of this announcement.
+At BrokerDev, we've been building MCP servers for legacy insurance systems from day one. Our MCP implementation for broker management systems means you're already positioned to take advantage of Microsoft's announcement.
 
-When Microsoft rolls out MCP support in Copilot:
+With BrokerDev's MCP server for your BMS:
 
-- ✓ Your BrokerDev MCP server will work immediately
+- ✓ Works immediately with Copilot Studio
 - ✓ No additional integration work required
-- ✓ Same data access you already have with Claude
-- ✓ Unified experience across AI platforms
+- ✓ Same tools and resources across Claude, Copilot, and other MCP-enabled platforms
+- ✓ Automatic updates when you enhance your MCP server
 
-## What's Next
+## Real-World Use Cases
 
-Microsoft's adoption of MCP validates what we've believed all along: standardized protocols are the future of AI integration. As more platforms adopt MCP, the value of your BrokerDev integration multiplies.
+Here's what insurance brokerages can do with MCP-connected Copilot agents:
 
-We're excited to see this ecosystem grow and to help insurance brokerages leverage these powerful new capabilities.
+**Client Service**
+- "Pull up all policies for ABC Company and check their renewal dates"
+- "What's the claims history for this client over the past 3 years?"
+- "Find all policies expiring next month that need follow-up"
+
+**Operations**
+- "Generate a commission report for producer John Smith for Q3"
+- "What's the status of pending certificate requests?"
+- "Show me all policies bound this week"
+
+**Compliance**
+- "List all policies without current certificates of insurance"
+- "Which clients haven't had their annual reviews completed?"
+
+## Getting Started
+
+Microsoft's MCP support is available now in Copilot Studio. To connect your BMS:
+
+1. Enable Generative Orchestration in Copilot Studio
+2. Configure your MCP server connection
+3. Your BMS tools and resources automatically become available to agents
+
+## What This Means for the Industry
+
+Microsoft's adoption of MCP is a watershed moment. With major platforms like Claude and now Microsoft Copilot supporting the protocol, MCP is becoming the de facto standard for AI-data integration.
+
+For insurance brokerages, this means:
+- **Lower Integration Costs** - Build once, connect to multiple AI platforms
+- **Faster Innovation** - New AI tools can connect to your existing MCP servers
+- **Vendor Independence** - Not locked into a single AI platform
+- **Future-Proof** - MCP support expanding across the AI ecosystem
 
 ### Want to Learn More?
 
-Interested in preparing your brokerage for the MCP-enabled future? [Request early access](/contact) to BrokerDev and get your systems ready for Copilot integration.
+Interested in connecting your BMS to Copilot Studio through MCP? [Request early access](/contact) to BrokerDev and we'll help you get started.
 
 ---
 
-**About the Model Context Protocol**: MCP is an open protocol developed by Anthropic that provides a standardized way to connect AI assistants to data sources. Learn more at [modelcontextprotocol.io](https://modelcontextprotocol.io).
+**Resources**:
+- [Microsoft Learn: MCP in Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)
+- [Model Context Protocol Specification](https://modelcontextprotocol.io)
