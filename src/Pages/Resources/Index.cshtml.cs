@@ -26,10 +26,23 @@ public class ResourcesIndexModel : PageModel
     {
         try
         {
-            SelectedCategory = category ?? ResourceConstants.AllCategoriesFilter;
-
             // Load all categories for filter buttons
             Categories = await _categoryService.GetAllCategoriesAsync();
+
+            // Validate category parameter
+            SelectedCategory = category ?? ResourceConstants.AllCategoriesFilter;
+
+            // Check if the category is valid (either "all" or exists in our category list)
+            if (SelectedCategory != ResourceConstants.AllCategoriesFilter)
+            {
+                var isValidCategory = Categories.Any(c => c.Id.Equals(SelectedCategory, StringComparison.OrdinalIgnoreCase));
+                if (!isValidCategory)
+                {
+                    _logger.LogWarning("Invalid category requested: {Category}", category);
+                    // Default to "all" for invalid categories
+                    SelectedCategory = ResourceConstants.AllCategoriesFilter;
+                }
+            }
 
             var allArticles = await _resourceService.GetAllArticlesAsync();
 
