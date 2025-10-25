@@ -76,7 +76,7 @@
   --glow-secondary: 0 0 20px rgba(244, 114, 182, 0.5);
 }
 
-/* System preference for dark mode */
+/* System preference for dark mode - applies dark theme variables automatically */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --primary-color: #818cf8;
@@ -113,6 +113,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
     --glow-primary: 0 0 20px rgba(129, 140, 248, 0.5);
     --glow-secondary: 0 0 20px rgba(244, 114, 182, 0.5);
+    color-scheme: dark;
   }
 }
 
