@@ -9,6 +9,7 @@ public record ResourceArticle
     public string Author { get; init; } = "BrokerDev";
     public DateTime PublishDate { get; init; }
     public int ReadingTimeMinutes { get; init; }
+    public bool Published { get; init; } = true;
 }
 
 public record ResourceArticleDetail : ResourceArticle

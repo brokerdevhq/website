@@ -11,8 +11,8 @@ public class FileBasedResourceService : IResourceService
     private readonly ILogger<FileBasedResourceService> _logger;
     private readonly IMemoryCache _cache;
     private readonly IWebHostEnvironment _environment;
+    private readonly TimeSpan _cacheDuration;
     private const string AllArticlesCacheKey = "AllArticles";
-    private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(30);
 
     private static readonly IDeserializer _yamlDeserializer = new DeserializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -21,11 +21,17 @@ public class FileBasedResourceService : IResourceService
     public FileBasedResourceService(
         ILogger<FileBasedResourceService> logger,
         IMemoryCache cache,
-        IWebHostEnvironment environment)
+        IWebHostEnvironment environment,
+        IConfiguration configuration)
     {
         _logger = logger;
         _cache = cache;
         _environment = environment;
+
+        var cacheDurationMinutes = configuration.GetValue<int>("ResourceService:CacheDurationMinutes", 30);
+        _cacheDuration = TimeSpan.FromMinutes(cacheDurationMinutes);
+
+        _logger.LogInformation("Resource cache duration set to {CacheDuration} minutes", cacheDurationMinutes);
     }
 
     private string GetContentPath() =>
@@ -71,6 +77,21 @@ public class FileBasedResourceService : IResourceService
             // Calculate reading time
             var readingTime = CalculateReadingTime(markdownContent);
 
+            // Parse published status (defaults to true if not present)
+            var published = true;
+            if (frontmatter.ContainsKey("published"))
+            {
+                var publishedValue = frontmatter["published"];
+                if (publishedValue is bool boolValue)
+                {
+                    published = boolValue;
+                }
+                else if (bool.TryParse(publishedValue?.ToString(), out var parsedBool))
+                {
+                    published = parsedBool;
+                }
+            }
+
             // Build the article
             return new ResourceArticleDetail
             {
@@ -87,6 +108,7 @@ public class FileBasedResourceService : IResourceService
                         ? parsedDate
                         : DateTime.Now,
                 ReadingTimeMinutes = readingTime,
+                Published = published,
                 Content = markdownContent
             };
         }
@@ -130,11 +152,12 @@ public class FileBasedResourceService : IResourceService
         {
             _logger.LogDebug("Cache miss - loading articles from disk");
 
-            entry.AbsoluteExpirationRelativeToNow = CacheDuration;
+            entry.AbsoluteExpirationRelativeToNow = _cacheDuration;
 
             var allArticles = LoadAllArticles();
 
             return allArticles
+                .Where(a => a.Published)
                 .Select(a => new ResourceArticle
                 {
                     Slug = a.Slug,
@@ -143,7 +166,8 @@ public class FileBasedResourceService : IResourceService
                     Categories = a.Categories,
                     Author = a.Author,
                     PublishDate = a.PublishDate,
-                    ReadingTimeMinutes = a.ReadingTimeMinutes
+                    ReadingTimeMinutes = a.ReadingTimeMinutes,
+                    Published = a.Published
                 })
                 .ToList();
         }) ?? new List<ResourceArticle>());
@@ -156,7 +180,7 @@ public class FileBasedResourceService : IResourceService
         // Get all articles from cache
         var allArticles = _cache.GetOrCreate(AllArticlesCacheKey, entry =>
         {
-            entry.AbsoluteExpirationRelativeToNow = CacheDuration;
+            entry.AbsoluteExpirationRelativeToNow = _cacheDuration;
             return LoadAllArticles();
         }) ?? new List<ResourceArticleDetail>();
 
