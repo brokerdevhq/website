@@ -2,11 +2,10 @@
 
 pkgs.mkShell {
   buildInputs = [
-    pkgs.jdk21           # Java Development Kit
-    pkgs.clojure         # Clojure CLI tools
-    pkgs.polylith        # Polylith CLI
+    pkgs.dotnet-sdk_9
+    pkgs.nodejs
     pkgs.gh              # GitHub CLI
-    pkgs.nodejs          # Node.js (for npx/claude-code)
+    pkgs.roslyn-ls       # Microsoft's official Roslyn language server
   ];
 
   shellHook = ''
@@ -27,14 +26,14 @@ pkgs.mkShell {
 
     echo "
 environment:    $APP_ENV
+namespace:      ca.brokerdev
 
 Common commands:
-  clj -M:repl                          - Start Clojure REPL
-  poly                                 - Run Polylith commands
-  poly info                            - Show workspace info
-  poly test                            - Run tests
-  poly check                           - Check workspace
-  claude                               - Run Claude Code CLI
+  dotnet new webapp -o BrokerDev.Web  - Create new ASP.NET Core web app
+  dotnet build                        - Build the solution
+  dotnet run                          - Run the application
+  dotnet watch                        - Run with hot reload
+  claude                              - Run Claude Code CLI
 "
   '';
 }

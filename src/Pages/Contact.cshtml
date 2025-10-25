@@ -1,0 +1,93 @@
+@page
+@model BrokerDevWebsite.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<section class="contact-hero">
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <p class="hero-subtitle">Interested in connecting your legacy insurance system to modern AI? Let's talk about your specific needs.</p>
+    </div>
+</section>
+
+<section class="contact-form-section">
+    <div class="container">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Request Early Access</h2>
+                <p>We're currently working with select insurance brokerages to refine the platform. Fill out the form and we'll be in touch within 24 hours.</p>
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <h3>📧 Email</h3>
+                        <p><a href="mailto:info@brokerdev.ca">info@brokerdev.ca</a></p>
+                    </div>
+
+                    <div class="contact-method">
+                        <h3>🏢 Target Industries</h3>
+                        <p>Insurance Brokerages using PowerBroker, BMSS, Sig, or similar legacy systems</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container">
+                @if (Model.FormSubmitted)
+                {
+                    <div class="alert alert-success">
+                        <h3>Thank you for your interest!</h3>
+                        <p>We've received your message and will be in touch within 24 hours.</p>
+                    </div>
+                }
+                else
+                {
+                    <form method="post" class="contact-form">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="ContactForm.Name">Name *</label>
+                            <input asp-for="ContactForm.Name" class="form-control" placeholder="Your full name" />
+                            <span asp-validation-for="ContactForm.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ContactForm.Email">Email *</label>
+                            <input asp-for="ContactForm.Email" type="email" class="form-control" placeholder="your@email.com" />
+                            <span asp-validation-for="ContactForm.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ContactForm.Company">Company *</label>
+                            <input asp-for="ContactForm.Company" class="form-control" placeholder="Your brokerage name" />
+                            <span asp-validation-for="ContactForm.Company" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ContactForm.CurrentSystem">Current BMS *</label>
+                            <select asp-for="ContactForm.CurrentSystem" class="form-control">
+                                <option value="">Select your current system...</option>
+                                <option value="PowerBroker">PowerBroker</option>
+                                <option value="BMSS">BMSS</option>
+                                <option value="Sig">Sig</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="ContactForm.CurrentSystem" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ContactForm.Message">Tell us about your needs *</label>
+                            <textarea asp-for="ContactForm.Message" class="form-control" rows="5" placeholder="What challenges are you facing with your current system? What AI capabilities are you interested in?"></textarea>
+                            <span asp-validation-for="ContactForm.Message" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="button primary large">Submit Request</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
