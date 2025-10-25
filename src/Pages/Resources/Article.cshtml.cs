@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BrokerDevWebsite.Models;
 using BrokerDevWebsite.Services;
+using Markdig;
 
 namespace BrokerDevWebsite.Pages.Resources;
 
@@ -9,8 +10,15 @@ public class ArticleModel : PageModel
 {
     private readonly IResourceService _resourceService;
     private readonly ILogger<ArticleModel> _logger;
+    private static readonly MarkdownPipeline _markdownPipeline = new MarkdownPipelineBuilder()
+        .UseAdvancedExtensions()
+        .Build();
 
     public ResourceArticleDetail? Article { get; set; }
+
+    public string ArticleContentHtml => Article != null
+        ? Markdown.ToHtml(Article.Content, _markdownPipeline)
+        : string.Empty;
 
     public ArticleModel(IResourceService resourceService, ILogger<ArticleModel> logger)
     {
