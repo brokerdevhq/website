@@ -7,18 +7,24 @@ namespace BrokerDevWebsite.Pages.Resources;
 public class ResourcesIndexModel : PageModel
 {
     private readonly IResourceService _resourceService;
+    private readonly ICategoryService _categoryService;
 
     public List<ResourceArticle> Articles { get; set; } = new();
+    public List<ResourceCategory> Categories { get; set; } = new();
     public string? SelectedCategory { get; set; }
 
-    public ResourcesIndexModel(IResourceService resourceService)
+    public ResourcesIndexModel(IResourceService resourceService, ICategoryService categoryService)
     {
         _resourceService = resourceService;
+        _categoryService = categoryService;
     }
 
     public async Task OnGetAsync(string? category)
     {
         SelectedCategory = category ?? "all";
+
+        // Load all categories for filter buttons
+        Categories = await _categoryService.GetAllCategoriesAsync();
 
         var allArticles = await _resourceService.GetAllArticlesAsync();
 

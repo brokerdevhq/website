@@ -16,9 +16,12 @@
   <div class="container">
     <div class="resources-filter">
       <a href="/resources" class="filter-btn @(Model.SelectedCategory == "all" ? "active" : "")">All</a>
-      <a href="/resources?category=news" class="filter-btn @(Model.SelectedCategory == "news" ? "active" : "")">News</a>
-      <a href="/resources?category=guides" class="filter-btn @(Model.SelectedCategory == "guides" ? "active" : "")">Guides</a>
-      <a href="/resources?category=definitions" class="filter-btn @(Model.SelectedCategory == "definitions" ? "active" : "")">Definitions</a>
+      @foreach (var category in Model.Categories)
+      {
+        <a href="/resources?category=@category.Id"
+           class="filter-btn @(Model.SelectedCategory == category.Id ? "active" : "")"
+           title="@category.Description">@category.Name</a>
+      }
     </div>
 
     <div class="resources-grid">
