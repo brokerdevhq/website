@@ -4,6 +4,13 @@ namespace BrokerDevWebsite.Services;
 
 public class InMemoryCategoryService : ICategoryService
 {
+    private readonly ILogger<InMemoryCategoryService> _logger;
+
+    public InMemoryCategoryService(ILogger<InMemoryCategoryService> logger)
+    {
+        _logger = logger;
+    }
+
     private static readonly List<ResourceCategory> _categories = new()
     {
         new ResourceCategory
@@ -31,13 +38,22 @@ public class InMemoryCategoryService : ICategoryService
 
     public Task<List<ResourceCategory>> GetAllCategoriesAsync()
     {
+        _logger.LogDebug("Retrieving all categories (count: {Count})", _categories.Count);
         return Task.FromResult(_categories.OrderBy(c => c.DisplayOrder).ToList());
     }
 
     public Task<ResourceCategory?> GetCategoryByIdAsync(string id)
     {
+        _logger.LogDebug("Retrieving category by ID: {CategoryId}", id);
+
         var category = _categories.FirstOrDefault(c =>
             c.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+
+        if (category == null)
+        {
+            _logger.LogWarning("Category not found for ID: {CategoryId}", id);
+        }
+
         return Task.FromResult(category);
     }
 
@@ -46,7 +62,14 @@ public class InMemoryCategoryService : ICategoryService
         if (string.IsNullOrWhiteSpace(categoryId))
             return false;
 
-        return _categories.Any(c =>
+        var isValid = _categories.Any(c =>
             c.Id.Equals(categoryId, StringComparison.OrdinalIgnoreCase));
+
+        if (!isValid)
+        {
+            _logger.LogDebug("Invalid category ID: {CategoryId}", categoryId);
+        }
+
+        return isValid;
     }
 }

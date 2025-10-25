@@ -5,6 +5,13 @@ namespace BrokerDevWebsite.Services;
 
 public class InMemoryResourceService : IResourceService
 {
+    private readonly ILogger<InMemoryResourceService> _logger;
+
+    public InMemoryResourceService(ILogger<InMemoryResourceService> logger)
+    {
+        _logger = logger;
+    }
+
     private static int CalculateReadingTime(string content)
     {
         // Strip HTML tags
@@ -141,6 +148,8 @@ public class InMemoryResourceService : IResourceService
 
     public Task<List<ResourceArticle>> GetAllArticlesAsync()
     {
+        _logger.LogDebug("Retrieving all articles (count: {Count})", _articles.Count);
+
         var articles = _articles
             .Select(a => new ResourceArticle
             {
@@ -159,7 +168,15 @@ public class InMemoryResourceService : IResourceService
 
     public Task<ResourceArticleDetail?> GetArticleBySlugAsync(string slug)
     {
+        _logger.LogDebug("Retrieving article by slug: {Slug}", slug);
+
         var article = _articles.FirstOrDefault(a => a.Slug.Equals(slug, StringComparison.OrdinalIgnoreCase));
+
+        if (article == null)
+        {
+            _logger.LogWarning("Article not found for slug: {Slug}", slug);
+        }
+
         return Task.FromResult(article);
     }
 }
