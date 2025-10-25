@@ -1,24 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using BrokerDevWebsite.Pages.Resources;
 
-namespace BrokerDevWebsite.Pages;
+namespace BrokerDevWebsite.Pages.Resources;
 
-public class IndexModel : PageModel
+public class ResourcesIndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public List<ResourceArticle> LatestResources { get; set; } = new();
-
-    public IndexModel(ILogger<IndexModel> logger)
-    {
-        _logger = logger;
-    }
+    public List<ResourceArticle> Articles { get; set; } = new();
 
     public void OnGet()
     {
-        // Get latest 3 resources (same data source as Resources page)
-        var allResources = new List<ResourceArticle>
+        // TODO: Load from markdown files or database
+        // For now, using sample data
+        Articles = new List<ResourceArticle>
         {
             new ResourceArticle
             {
@@ -46,6 +38,17 @@ public class IndexModel : PageModel
             }
         };
 
-        LatestResources = allResources.OrderByDescending(a => a.PublishDate).Take(3).ToList();
+        // Sort by date, newest first
+        Articles = Articles.OrderByDescending(a => a.PublishDate).ToList();
     }
+}
+
+public class ResourceArticle
+{
+    public string Slug { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Summary { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty;
+    public DateTime PublishDate { get; set; }
+    public int ReadingTimeMinutes { get; set; }
 }

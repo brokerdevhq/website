@@ -1,0 +1,39 @@
+@page
+@model ResourcesIndexModel
+@{
+    ViewData["Title"] = "Resources - BrokerDev";
+    ViewData["Description"] = "News, guides, and insights about bridging legacy insurance systems with modern AI.";
+}
+
+<section class="hero resources-hero">
+  <div class="container">
+    <h1>Resources</h1>
+    <p class="hero-subtitle">News, guides, and insights about modernizing your BMS</p>
+  </div>
+</section>
+
+<section class="resources-list">
+  <div class="container">
+    <div class="resources-filter">
+      <button class="filter-btn active" data-category="all">All</button>
+      <button class="filter-btn" data-category="news">News</button>
+      <button class="filter-btn" data-category="guides">Guides</button>
+      <button class="filter-btn" data-category="definitions">Definitions</button>
+    </div>
+
+    <div class="resources-grid">
+      @foreach (var article in Model.Articles)
+      {
+        <article class="resource-card" data-category="@article.Category">
+          <div class="resource-meta">
+            <span class="resource-category">@article.Category</span>
+            <span class="resource-date">@article.PublishDate.ToString("MMM d, yyyy")</span>
+          </div>
+          <h2><a href="/resources/@article.Slug">@article.Title</a></h2>
+          <p>@article.Summary</p>
+          <a href="/resources/@article.Slug" class="read-more">Read more →</a>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -7,11 +7,10 @@
 
 <section class="hero">
   <div class="container">
-    <h1>Your Legacy Insurance Data, <span class="highlight">AI-Ready</span></h1>
+    <h1>Your BMS Data, <span class="highlight">AI-Ready</span></h1>
     <p class="hero-subtitle">Don't replace your working BMS. Bridge it with modern AI through our Model Context Protocol API.</p>
     <div class="hero-cta">
       <a href="/contact" class="button primary">Request Early Access</a>
-      <a href="/features" class="button secondary">See How It Works</a>
     </div>
   </div>
 </section>
@@ -83,15 +82,25 @@
   </div>
 </section>
 
-<section class="technology">
+<section class="latest-resources">
   <div class="container">
-    <h2>Technical Details</h2>
-    <div class="tech-content">
-      <div class="tech-description">
-        <h3>Model Context Protocol (MCP)</h3>
-        <p>We use Anthropic's open standard for connecting AI to data. Works with Claude today, will work with future AI tools too.</p>
-
-      </div>
+    <div class="section-header">
+      <h2>Latest Resources</h2>
+      <a href="/resources" class="view-all">View all →</a>
+    </div>
+    <div class="resources-grid">
+      @foreach (var article in Model.LatestResources)
+      {
+        <article class="resource-card">
+          <div class="resource-meta">
+            <span class="resource-category">@article.Category</span>
+            <span class="resource-date">@article.PublishDate.ToString("MMM d, yyyy")</span>
+          </div>
+          <h3><a href="/resources/@article.Slug">@article.Title</a></h3>
+          <p>@article.Summary</p>
+          <a href="/resources/@article.Slug" class="read-more">Read more →</a>
+        </article>
+      }
     </div>
   </div>
 </section>
