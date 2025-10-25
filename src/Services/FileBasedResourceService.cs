@@ -13,6 +13,7 @@ public class FileBasedResourceService : IResourceService
     private readonly IWebHostEnvironment _environment;
     private readonly TimeSpan _cacheDuration;
     private const string AllArticlesCacheKey = "AllArticles";
+    private const string AllArticlesDetailCacheKey = "AllArticlesDetail";
 
     private static readonly IDeserializer _yamlDeserializer = new DeserializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -171,8 +172,8 @@ public class FileBasedResourceService : IResourceService
     {
         _logger.LogDebug("Retrieving article by slug: {Slug}", slug);
 
-        // Get all articles from cache
-        var allArticles = _cache.GetOrCreate(AllArticlesCacheKey, entry =>
+        // Get all detailed articles from cache (using separate cache key)
+        var allArticles = _cache.GetOrCreate(AllArticlesDetailCacheKey, entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = _cacheDuration;
             return LoadAllArticles();
