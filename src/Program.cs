@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IResourceService, InMemoryResourceService>();
 builder.Services.AddSingleton<ICategoryService, InMemoryCategoryService>();
 builder.Services.AddSingleton<IContactService, InMemoryContactService>();

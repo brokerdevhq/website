@@ -1,15 +1,20 @@
 using BrokerDevWebsite.Models;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BrokerDevWebsite.Services;
 
 public class InMemoryResourceService : IResourceService
 {
     private readonly ILogger<InMemoryResourceService> _logger;
+    private readonly IMemoryCache _cache;
+    private const string AllArticlesCacheKey = "AllArticles";
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(30);
 
-    public InMemoryResourceService(ILogger<InMemoryResourceService> logger)
+    public InMemoryResourceService(ILogger<InMemoryResourceService> logger, IMemoryCache cache)
     {
         _logger = logger;
+        _cache = cache;
     }
 
     private static int CalculateReadingTime(string content)
@@ -148,22 +153,27 @@ public class InMemoryResourceService : IResourceService
 
     public Task<List<ResourceArticle>> GetAllArticlesAsync()
     {
-        _logger.LogDebug("Retrieving all articles (count: {Count})", _articles.Count);
+        return Task.FromResult(_cache.GetOrCreate(AllArticlesCacheKey, entry =>
+        {
+            _logger.LogDebug("Cache miss - retrieving all articles (count: {Count})", _articles.Count);
 
-        var articles = _articles
-            .Select(a => new ResourceArticle
-            {
-                Slug = a.Slug,
-                Title = a.Title,
-                Summary = a.Summary,
-                Categories = a.Categories,
-                Author = a.Author,
-                PublishDate = a.PublishDate,
-                ReadingTimeMinutes = a.ReadingTimeMinutes
-            })
-            .ToList();
+            entry.AbsoluteExpirationRelativeToNow = CacheDuration;
 
-        return Task.FromResult(articles);
+            var articles = _articles
+                .Select(a => new ResourceArticle
+                {
+                    Slug = a.Slug,
+                    Title = a.Title,
+                    Summary = a.Summary,
+                    Categories = a.Categories,
+                    Author = a.Author,
+                    PublishDate = a.PublishDate,
+                    ReadingTimeMinutes = a.ReadingTimeMinutes
+                })
+                .ToList();
+
+            return articles;
+        }) ?? new List<ResourceArticle>());
     }
 
     public Task<ResourceArticleDetail?> GetArticleBySlugAsync(string slug)
