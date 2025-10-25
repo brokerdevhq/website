@@ -1,3 +1,5 @@
+using BrokerDevWebsite.Models;
+
 namespace BrokerDevWebsite.Services;
 
 public class InMemoryResourceService : IResourceService

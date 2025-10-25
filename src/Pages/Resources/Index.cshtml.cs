@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BrokerDevWebsite.Models;
 using BrokerDevWebsite.Services;
 
 namespace BrokerDevWebsite.Pages.Resources;

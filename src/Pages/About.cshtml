@@ -1,0 +1,50 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About - BrokerDev";
+    ViewData["Description"] = "Learn about BrokerDev's mission to bridge legacy insurance systems with modern AI tools.";
+}
+
+<section class="hero">
+  <div class="container">
+    <h1>About BrokerDev</h1>
+    <p class="hero-subtitle">Bridging legacy insurance systems with modern AI</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container" style="max-width: 800px;">
+    <h2>Our Mission</h2>
+    <p>We're building the bridge between decades of valuable brokerage data trapped in legacy systems and the modern AI tools that can unlock its potential.</p>
+
+    <h2>The Problem</h2>
+    <p>Insurance brokerages rely on systems like PowerBroker and BMSS that work reliably but don't integrate with modern AI assistants, business intelligence tools, or custom applications. The data is there—decades of customer histories, policy details, and business insights—but it's locked away in formats that modern tools can't access.</p>
+
+    <p>Replacing these systems isn't realistic. Migration projects cost millions, take years, and carry enormous risk of data loss and business disruption.</p>
+
+    <h2>Our Solution</h2>
+    <p>BrokerDev provides a secure API layer that sits between your existing BMS and modern tools. Using the Model Context Protocol (MCP), we enable:</p>
+
+    <ul>
+      <li>AI assistants like ChatGPT, Claude, and Copilot to query your data in natural language</li>
+      <li>Business intelligence tools like Power BI and Tableau to connect directly to your BMS</li>
+      <li>Custom applications to access your data through a modern REST API</li>
+      <li>All while keeping your data on your infrastructure and maintaining full audit logs</li>
+    </ul>
+
+    <h2>Why We Built This</h2>
+    <p>We've seen firsthand how brokerages struggle with the gap between their reliable legacy systems and the modern tools that could transform their operations. No brokerage should have to choose between keeping their working system and leveraging modern technology.</p>
+
+    <h2>Our Approach</h2>
+    <p>We believe in:</p>
+    <ul>
+      <li><strong>Pragmatism over perfection</strong> - Your system works. We're not here to replace it.</li>
+      <li><strong>Security first</strong> - Your data stays on your infrastructure. Full audit logging. No data leaves your network.</li>
+      <li><strong>Open standards</strong> - We use MCP, an open protocol developed by Anthropic, not proprietary lock-in.</li>
+      <li><strong>Incremental value</strong> - Start with one use case, expand as you see value.</li>
+    </ul>
+
+    <h2>Get Started</h2>
+    <p>We're working with a small group of brokerages to refine the platform. If you're interested in early access, <a href="/contact">get in touch</a>.</p>
+  </div>
+</section>
