@@ -46,17 +46,16 @@ public class ResourcesIndexModel : PageModel
 
             var allArticles = await _resourceService.GetAllArticlesAsync();
 
-            // Filter by category if specified
+            // Filter by category if specified (service already returns sorted by publish date descending)
             if (SelectedCategory != ResourceConstants.AllCategoriesFilter)
             {
                 Articles = allArticles
                     .Where(a => a.Categories.Any(c => c.Equals(SelectedCategory, StringComparison.OrdinalIgnoreCase)))
-                    .OrderByDescending(a => a.PublishDate)
                     .ToList();
             }
             else
             {
-                Articles = allArticles.OrderByDescending(a => a.PublishDate).ToList();
+                Articles = allArticles.ToList();
             }
         }
         catch (Exception ex)

@@ -168,18 +168,31 @@ public class FileBasedResourceService : IResourceService
         }) ?? new List<ResourceArticle>());
     }
 
+    private ResourceArticleDetail? LoadArticleBySlug(string slug)
+    {
+        var contentPath = GetContentPath();
+        var file = Path.Combine(contentPath, $"{slug}.md");
+
+        if (!File.Exists(file))
+        {
+            _logger.LogDebug("Article file not found: {FilePath}", file);
+            return null;
+        }
+
+        return ParseMarkdownFile(file);
+    }
+
     public Task<ResourceArticleDetail?> GetArticleBySlugAsync(string slug)
     {
         _logger.LogDebug("Retrieving article by slug: {Slug}", slug);
 
-        // Get all detailed articles from cache (using separate cache key)
-        var allArticles = _cache.GetOrCreate(AllArticlesDetailCacheKey, entry =>
+        // Cache individual articles with slug-specific key for better performance
+        var cacheKey = $"Article_{slug}";
+        var article = _cache.GetOrCreate(cacheKey, entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = _cacheDuration;
-            return LoadAllArticles();
-        }) ?? new List<ResourceArticleDetail>();
-
-        var article = allArticles.FirstOrDefault(a => a.Slug.Equals(slug, StringComparison.OrdinalIgnoreCase));
+            return LoadArticleBySlug(slug);
+        });
 
         if (article == null)
         {

@@ -22,9 +22,9 @@ public class IndexModel : PageModel
     {
         try
         {
-            // Get latest 3 resources
+            // Get latest 3 resources (service already returns sorted by publish date descending)
             var allResources = await _resourceService.GetAllArticlesAsync();
-            LatestResources = allResources.OrderByDescending(a => a.PublishDate).Take(3).ToList();
+            LatestResources = allResources.Take(3).ToList();
         }
         catch (Exception ex)
         {
