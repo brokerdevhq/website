@@ -6,25 +6,33 @@ Marketing website for BrokerDev - bridging legacy insurance systems with modern 
 
 ```
 website/
-├── src/                        # ASP.NET Core Razor Pages application
-│   ├── Pages/                  # Razor pages
-│   │   ├── Index.cshtml       # Home page
-│   │   ├── Contact.cshtml     # Contact form page
-│   │   └── Shared/            # Shared layout and partials
-│   ├── wwwroot/               # Static files
-│   │   ├── css/               # Stylesheets
-│   │   ├── js/                # JavaScript files
-│   │   └── images/            # Images
-│   └── appsettings.json       # App configuration
-├── .github/workflows/         # GitHub Actions CI/CD
-└── .azure/                    # Azure CLI configuration
+├── src/                             # ASP.NET Core Razor Pages application
+│   ├── Pages/                       # Razor pages
+│   │   ├── Index.cshtml            # Home page
+│   │   ├── Contact.cshtml          # Contact form page
+│   │   └── Shared/                 # Shared layout and partials
+│   ├── wwwroot/                    # Static files
+│   │   ├── css/                    # Stylesheets
+│   │   │   └── site.css            # Main stylesheet (organized by sections)
+│   │   └── js/                     # JavaScript files
+│   │       └── site.js             # Theme toggle functionality
+│   ├── appsettings.json            # Base configuration
+│   ├── appsettings.Development.json # Development overrides
+│   └── appsettings.Production.json  # Production overrides
+├── .github/workflows/              # GitHub Actions CI/CD
+├── .azure/                         # Azure CLI configuration
+├── .gitignore                      # Git ignore rules
+└── CLAUDE.md                       # Claude Code documentation
 ```
 
 ## Features
 
 - **Home Page**: Full marketing site with hero, features, use cases, and CTAs
-- **Contact Form**: Functional contact form with validation
-- **Responsive Design**: Mobile-friendly layout
+- **Contact Form**: Functional contact form with server-side validation
+- **Responsive Design**: Mobile-first, fully responsive layout
+- **Dark/Light Theme**: System-aware theme toggle with localStorage persistence
+- **Clean CSS**: Well-organized stylesheet with clear section markers
+- **Security Headers**: Production-ready security middleware
 - **Azure Ready**: Configured for Azure App Service deployment
 
 ## Local Development
@@ -221,8 +229,8 @@ az webapp log tail \
 
 ## Next Steps
 
-1. [ ] Add Features page (convert from features.md)
-2. [ ] Add About page (convert from about.md)
+1. [ ] Add Features page
+2. [ ] Add About page
 3. [ ] Implement email sending for contact form
 4. [ ] Add Application Insights monitoring
 5. [ ] Set up custom domain
