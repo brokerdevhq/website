@@ -22,10 +22,8 @@
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/scopedcss/Pages/Shared/_Layout.cshtml.rz.scp.css
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/scopedcss/bundle/BrokerDevWebsite.styles.css
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/scopedcss/projectbundle/BrokerDevWebsite.bundle.scp.css
-/home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/5sb4ou4olp-avumrak1z0.gz
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/khu6bi2dag-ziuspois60.gz
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/w4zmel0nwn-61n19gt1b8.gz
-/home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/sswhq7qhsx-xtxxf3hu2r.gz
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/6etbanueui-bqjiyaj88i.gz
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/j2xiav79z0-c2jlpeoesf.gz
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/haglrtlqu0-erw9l3u2r3.gz
@@ -96,3 +94,5 @@
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/BrokerDevWebsite.pdb
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/BrokerDevWebsite.genruntimeconfig.cache
 /home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/ref/BrokerDevWebsite.dll
+/home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/sswhq7qhsx-xet7mx9qag.gz
+/home/e/Repos/BrokerDev/website/src/obj/Debug/net9.0/compressed/5sb4ou4olp-2txmsx4k19.gz
